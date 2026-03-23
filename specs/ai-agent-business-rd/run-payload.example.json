@@ -1,0 +1,14 @@
+{
+  "topic": "AI-agent-driven online businesses for solo founders",
+  "idea_count": 5,
+  "mode": "full",
+  "preset": "solo-founder",
+  "optimize_for": "first $1k MRR",
+  "constraints": [
+    "solo founder",
+    "small initial budget",
+    "online only"
+  ],
+  "business_model": "productized service",
+  "agent_role": "core-engine"
+}
