@@ -62,7 +62,7 @@ export interface WorkflowRunDetail extends WorkflowRunSummary {
   stageLifecycle?: Record<string, StageLifecycleEntry>;
   roleOutputs?: Record<string, unknown>;
   aggregation?: Record<string, unknown>;
-  finalSynthesis?: string;
+  finalSynthesis?: string | Record<string, unknown> | string[];
   failures?: string[];
   rankedIdeaDetails?: RankedIdeaDetail[];
   killedIdeaDetails?: KilledIdeaDetail[];

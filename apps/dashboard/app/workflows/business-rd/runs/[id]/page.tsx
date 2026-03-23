@@ -13,6 +13,29 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
+function renderSynthesis(value: unknown): React.ReactNode {
+  if (!value) return 'No synthesis yet.';
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) {
+    return <ul>{value.map((item, idx) => <li key={`${idx}-${String(item)}`}>{String(item)}</li>)}</ul>;
+  }
+  if (typeof value === 'object') {
+    return (
+      <div style={{ display: 'grid', gap: 12 }}>
+        {Object.entries(value as Record<string, unknown>).map(([key, entry]) => (
+          <div key={key}>
+            <strong>{key.replace(/_/g, ' ')}:</strong>{' '}
+            {Array.isArray(entry)
+              ? <ul>{entry.map((item, idx) => <li key={`${key}-${idx}`}>{String(item)}</li>)}</ul>
+              : String(entry)}
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return String(value);
+}
+
 export default async function RunDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const run = await getRun(id);
@@ -113,7 +136,7 @@ export default async function RunDetailPage({ params }: { params: Promise<{ id: 
       </Section>
 
       <Section title="Final Synthesis">
-        <p>{run.finalSynthesis ?? 'No synthesis yet.'}</p>
+        {renderSynthesis(run.finalSynthesis)}
       </Section>
 
       <Section title="Raw Debug Data">
