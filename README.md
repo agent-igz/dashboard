@@ -35,6 +35,28 @@ scripts/ai_agent_business_rd_runner.py
 - Each stage executes through OpenClaw using `openclaw agent --json`
 - Run state and artifacts are persisted locally for inspection in the UI
 
+## How OpenClaw fits in
+
+The app does **not** call an LLM provider directly from the Next.js code.
+
+Instead, the runtime path is:
+
+1. the dashboard backend creates or advances a workflow stage
+2. `apps/dashboard/src/lib/run-service.ts` prepares the prompt and stage payload
+3. `apps/dashboard/src/lib/openclaw-runtime.ts` invokes:
+   - `openclaw agent --json --session-id ... --message ...`
+4. OpenClaw uses the model/provider configuration already available on the machine
+5. the stage result is returned to the app and saved as part of the run artifacts
+
+That means:
+- the repo does **not** store the LLM API key in app code
+- the app relies on a working local OpenClaw installation
+- provider auth is handled by OpenClaw, not by the dashboard UI itself
+
+In short:
+
+**Dashboard app → OpenClaw CLI/runtime → configured model provider**
+
 ## Requirements
 
 - Node.js / npm
