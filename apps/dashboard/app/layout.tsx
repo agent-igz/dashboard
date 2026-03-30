@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import React from 'react';
 
 export const metadata: Metadata = {
-  title: 'Business R&D Dashboard v33',
+  title: 'Business R&D Dashboard v303',
   description: 'Manual runner UI for the AI-agent business R&D workflow.',
 };
 
